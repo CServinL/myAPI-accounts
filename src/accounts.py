@@ -70,7 +70,8 @@ def login():
         cursor = g.cnx.cursor()
         qlogin=f"SELECT ID, user, pass FROM accounts where user='{request.args['user']}' AND pass='{request.args['pass']}'"
         cursor.execute(qlogin)
-        if cursor.rowcount:
+        rows = cursor.fetchall()
+        if len(rows):
             response = app.response_class(
                 response=json.dumps({"msg":f"Wellcome ${request.args['user']}"}),
                 status=200,
@@ -79,7 +80,7 @@ def login():
             return response
         else:
             response = app.response_class(
-                response=json.dumps({"msg":f"Unauthorized rowcount:{cursor.rowcount} query:{qlogin}"}),
+                response=json.dumps({"msg":f"Unauthorized rowcount:{len(rows)}"}),
                 status=401,
                 mimetype='application/json'
                 )
