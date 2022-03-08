@@ -76,13 +76,11 @@ def login():
                 status=200,
                 mimetype='application/json'
                 )
-            print(f"Logged in: {qlogin}")
             return response
         else:
             response = app.response_class(
-                response=json.dumps({"msg":f"Unauthorized rowcount:{cursor.rowcount}"}),
+                response=json.dumps({"msg":f"Unauthorized rowcount:{cursor.rowcount} query:{qlogin}"}),
                 status=401,
                 mimetype='application/json'
                 )
-            print(f"Failed to login: {qlogin}")
             return response
