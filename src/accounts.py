@@ -73,7 +73,7 @@ def login():
         rows = cursor.fetchall()
         if len(rows):
             response = app.response_class(
-                response=json.dumps({"msg":f"Wellcome ${request.args['user']}"}),
+                response=json.dumps({"msg":f"Wellcome {request.args['user']}"}),
                 status=200,
                 mimetype='application/json'
                 )
