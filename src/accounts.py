@@ -68,9 +68,8 @@ def account():
 def login():
     if request.method == 'GET':
         cursor = g.cnx.cursor()
-        cursor.execute(f"SELECT ID, user, pass FROM accounts where user='{request.args['user']}' AND pass='{request.args['pass']}'")
-        results= []
-        if len(results):
+        cursor.execute(f"SELECT ID, user, pass FROM accounts where user='{request.args['user']}' AND pass='{request.args['pass']}'")       
+        if cursor.rowcount:
             response = app.response_class(
                 response=json.dumps({"msg":f"Wellcome ${request.args['user']}"}),
                 status=200,
@@ -79,7 +78,7 @@ def login():
             return response
         else:
             response = app.response_class(
-                response=json.dumps({"msg":"Unauthorized: "+str(len(results))}),
+                response=json.dumps({"msg":"Unauthorized"}),
                 status=401,
                 mimetype='application/json'
                 )
