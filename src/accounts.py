@@ -79,7 +79,7 @@ def login():
             return response
         else:
             response = app.response_class(
-                response=json.dumps({"msg":"Unauthorized"}),
+                response=json.dumps({"msg":"Unauthorized: "+str(len(results))}),
                 status=401,
                 mimetype='application/json'
                 )
