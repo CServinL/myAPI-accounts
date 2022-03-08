@@ -68,13 +68,15 @@ def account():
 def login():
     if request.method == 'GET':
         cursor = g.cnx.cursor()
-        cursor.execute(f"SELECT ID, user, pass FROM accounts where user='{request.args['user']}' AND pass='{request.args['pass']}'")       
+        qlogin=f"SELECT ID, user, pass FROM accounts where user='{request.args['user']}' AND pass='{request.args['pass']}'"
+        cursor.execute(qlogin)
         if cursor.rowcount:
             response = app.response_class(
                 response=json.dumps({"msg":f"Wellcome ${request.args['user']}"}),
                 status=200,
                 mimetype='application/json'
                 )
+            print(f"Logged in: {qlogin}")
             return response
         else:
             response = app.response_class(
@@ -82,4 +84,5 @@ def login():
                 status=401,
                 mimetype='application/json'
                 )
+            print(f"Failed to login: {qlogin}")
             return response
