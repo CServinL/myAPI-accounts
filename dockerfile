@@ -11,7 +11,7 @@ RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r ./requirements.txt --no-color
 
 # Abrir el puerto 80 del contendor
-EXPOSE 5001
+EXPOSE 5000
 
 # Injectar variable de configuracion para flask
 ENV FLASK_APP=accounts.py
