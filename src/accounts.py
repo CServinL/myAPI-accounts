@@ -78,7 +78,7 @@ def login():
             return response
         else:
             response = app.response_class(
-                response=json.dumps({"msg":"Unauthorized"}),
+                response=json.dumps({"msg":f"Unauthorized rowcount:{cursor.rowcount}"}),
                 status=401,
                 mimetype='application/json'
                 )
