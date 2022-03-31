@@ -11,7 +11,7 @@ node {
             sh 'set'
             sh 'pwd'
             sh 'pip list'
-            sh 'env -i MYSQL_IP="$MYSQL_IP -i MYSQL_PORT="3306" python src/init-db.py'
+            sh 'env -i MYSQL_IP="$MYSQL_IP" -i MYSQL_PORT="3306" python src/init-db.py'
             sh 'python tests/tests.py'
         }
     }
