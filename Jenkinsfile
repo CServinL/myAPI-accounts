@@ -11,8 +11,8 @@ node {
             sh 'set'
             sh 'pwd'
             sh 'pip list'
-            sh 'MYSQL_IP="$MYSQL_IP"; MYSQL_PORT="3306"; python src/init-db.py;'
-            sh 'python tests/tests.py'
+            sh 'cd src; python init-db.py;'
+            sh 'cd ../tests; python tests.py'
         }
     }
     stage('Deploy') {
