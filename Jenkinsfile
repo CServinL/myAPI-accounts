@@ -16,19 +16,13 @@ node {
     }
     stage('DeployTest') {
         sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
-        sh 'docker run -p 6000:6000 -d --rm --name myapi-accounts-test -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:test'
-        sh 'python3 tests.py `docker inspect --format "{{ .NetworkSettings.IPAddress }}" myapi-accounts-test`'
-    }
-    stage('DeployTest') {
-        sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
         sh 'docker run -p 6000:5000 -d --rm --name myapi-accounts-test -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:test'
         try {
-            sh 'python3 tests.py `docker inspect --format "{{ .NetworkSettings.IPAddress }}" myapi-accounts-test`'
+            sh 'python3 tests.py `docker inspect --format "{{ .NetworkSettings.IPAddress }}" myapi-accounts-test` 6000'
         }
         catch (exc) {
-        }
-        finally {
             sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
+            throw exc
         }
     }
     stage('Deploy') {
