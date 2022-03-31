@@ -27,7 +27,7 @@ node {
         }
         catch (exc) {
             sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
-            throw
+            throw exc
         }
     }
     stage('Deploy') {
