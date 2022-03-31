@@ -30,6 +30,9 @@ node {
     }
     stage('Deploy') {
         sh 'docker stop myapi-accounts || true && docker rm myapi-accounts || true'
+        sh 'docker rmi myapi-accounts:latest'
+        sh 'docker tag myapi-accounts:test myapi-accounts:latest'
+        sh 'docker rmi myapi-accounts:test'
         sh 'docker run -p 5000:5000 -d --rm --name myapi-accounts -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:latest'
         sh 'docker exec myapi-accounts python init-db.py'
     }
