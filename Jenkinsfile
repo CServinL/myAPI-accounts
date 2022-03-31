@@ -10,7 +10,6 @@ node {
         app.inside {
             sh 'set'
             sh 'pwd'
-            sh 'sudo pip install requests'
             sh 'pip list'
         }
     }
