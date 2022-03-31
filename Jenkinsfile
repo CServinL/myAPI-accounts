@@ -25,6 +25,9 @@ node {
             sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
             throw exc
         }
+        finally {
+            sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
+        }
     }
     stage('Deploy') {
         sh 'docker stop myapi-accounts || true && docker rm myapi-accounts || true'
