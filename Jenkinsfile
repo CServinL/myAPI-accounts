@@ -12,7 +12,7 @@ node {
             sh 'pwd'
             sh 'pip list'
             sh 'cd src; python init-db.py;'
-            sh 'cd ../tests; python tests.py'
+            sh 'cd tests; python tests.py'
         }
     }
     stage('Deploy') {
