@@ -5,7 +5,7 @@ import sys
 def main():
     TestOK = True
 
-    baseurl = f"http://{sys.argv[1]}:{sys.argv[2]}"
+    baseurl = f"http://{sys.argv[1]}:6000"
 
     print (f"Running for {baseurl}")
 
