@@ -16,7 +16,7 @@ node {
     stage('DeployTest') {
         sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
         sh 'docker run -p 5000:5000 -d --rm --name myapi-accounts-test -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:test'
-        sh 'docker exec myapi-accounts python init-db.py'
+        sh 'docker exec myapi-accounts-test python init-db.py'
     }
     stage('TestApp') {
         app.inside {
