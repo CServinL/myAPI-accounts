@@ -19,10 +19,8 @@ node {
         sh 'docker exec myapi-accounts-test python init-db.py'
     }
     stage('TestApp') {
-        app.inside {
-            sh 'pwd'
-            sh 'python tests/tests.py'
-        }
+        sh 'pwd'
+        sh 'python tests/tests.py'
         sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
     }
     stage('DeployOk') {
