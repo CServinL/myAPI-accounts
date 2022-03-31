@@ -5,8 +5,12 @@ import sys
 def main():
     TestOK = True
 
+    baseurl = f"http://{sys.argv[1]}:{sys.argv[2]}"
+
+    print (f"Running for {baseurl}")
+
     print('Test 1 - Login with a non existant user')
-    req = requests.get('http://localhost:5000/login?user=master&pass=race')
+    req = requests.get(f'{baseurl}/login?user=master&pass=race')
     if req.status_code != 401:
         TestOK = False
     if TestOK == False:
@@ -15,7 +19,7 @@ def main():
         print('Passed')
 
     print('Test 2 - Get account detail for non existant user')
-    req = requests.get('http://localhost:5000/account?user=master')
+    req = requests.get(f'{baseurl}/account?user=master')
     if req.status_code != 200:
         TestOK = False
     if req.text != '[]':
@@ -27,7 +31,7 @@ def main():
         print('Passed')
     
     print('Test 3 - Create user master')
-    req = requests.post('http://localhost:5000/account?user=master&pass=race')
+    req = requests.post(f'{baseurl}/account?user=master&pass=race')
     if req.status_code != 200:
         TestOK = False
     if req.text != '{"msg": "Saved master"}':
@@ -39,7 +43,7 @@ def main():
         print('Passed')
 
     print('Test 4 - Delete user master')
-    req = requests.delete('http://localhost:5000/account?user=master')
+    req = requests.delete(f'{baseurl}/account?user=master')
     if req.status_code != 200:
         TestOK = False
     if req.text != '{"msg": "Deleted", "count": "1"}':
