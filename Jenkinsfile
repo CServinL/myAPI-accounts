@@ -6,24 +6,16 @@ node {
     stage('Build') {
         app = docker.build("myapi-accounts:test")
     }
-    stage('PrepEnv') {
+    stage('TestBuild') {
         app.inside {
             sh 'set'
             sh 'pwd'
             sh 'pip list'
+            sh 'python src/init-db.py'
+            sh 'python tests/tests.py'
         }
     }
-    stage('DeployTest') {
-        sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
-        sh 'docker run -p 5000:5000 -d --rm --name myapi-accounts-test -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:test'
-        sh 'docker exec myapi-accounts-test python init-db.py'
-    }
-    stage('TestApp') {
-        sh 'pwd'
-        sh 'python tests/tests.py'
-        sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
-    }
-    stage('DeployOk') {
+    stage('Deploy') {
         sh 'docker stop myapi-accounts || true && docker rm myapi-accounts || true'
         sh 'docker run -p 5000:5000 -d --rm --name myapi-accounts -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:latest'
         sh 'docker exec myapi-accounts python init-db.py'
