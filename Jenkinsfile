@@ -25,7 +25,7 @@ node {
         try {
             sh 'python3 tests.py `docker inspect --format "{{ .NetworkSettings.IPAddress }}" myapi-accounts-test`'
         }
-        catch {
+        catch (exc) {
             sh 'docker stop myapi-accounts-test || true && docker rm myapi-accounts-test || true'
             throw
         }
