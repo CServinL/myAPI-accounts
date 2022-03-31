@@ -11,6 +11,8 @@ node {
             sh 'set'
             sh 'pwd'
             sh 'pip list'
+            sh 'export MYSQL_IP="$MYSQL_IP"'
+            sh 'export MYSQL_PORT="3306"'
             sh 'python src/init-db.py'
             sh 'python tests/tests.py'
         }
