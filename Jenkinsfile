@@ -33,7 +33,7 @@ node {
         sh 'docker rmi myapi-accounts:latest'
         sh 'docker tag myapi-accounts:test myapi-accounts:latest'
         sh 'docker rmi myapi-accounts:test'
-        sh 'docker run --ip 172.17.0.100 -p 5000:5000 -d --rm --name myapi-accounts -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:latest'
+        sh 'docker run --ip 172.17.0.15 -p 5000:5000 -d --rm --name myapi-accounts -e MYSQL_IP="$MYSQL_IP" -e MYSQL_PORT="3306" -e MYSQL_USER="$MYSQL_USER" -e MYSQL_PASSWORD="$MYSQL_PASSWORD" myapi-accounts:latest'
         sh 'docker exec myapi-accounts python init-db.py'
     }
 }
